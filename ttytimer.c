@@ -49,22 +49,11 @@ void klart(void)
 	system("clear"); /* Clear screen */
 	printf("\n");
 	system("figlet KLART!");
-
-	/*int fildes, n;	*/
-	/*char buf[200];*/
-
-	/*system("clear"); [> Clear screen <]*/
-	/*printf("\n");*/
-
-	/*fildes = open("/tmp/timerklar", O_RDONLY);*/
-	/*n = read(fildes,buf,200);*/
-	/*write(1, buf, n);*/
 }
 
 int
 main(int argc, char *argv[])
 {
-	/*for (tid_kvar = min * 60; tid_kvar > 0; tid_kvar--) {*/
 	indata();
 	system("clear"); /* Clear screen */
 
