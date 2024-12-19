@@ -6,29 +6,18 @@
 /*#include <ncurses.h>*/
 
 void
-read_time_input(int *minutes, int *seconds)
+read_time_input(int *input_number, int low, int high, char *input_name)
 {
 	do {
-		if (*minutes > 59)
-            printf("The number of minutes is higher than 59!\n");
-		else if (*minutes < 0)
-            printf("Invalid input! Please enter a valid number.\n");
+		if (*input_number > high)
+            printf("Invalid input: the number of %s is higher than %d!\n", input_name, high);
+		else if (*input_number < low)
+            printf("Invalid input: the number of %s is lower than %d!\n", input_name, low);
 
-		printf("How many minutes? ");
-		scanf("%d", minutes);
+		printf("How many %s? ", input_name);
+		scanf("%d", input_number);
 	}
-	while (*minutes > 59 || *minutes < 0);
-
-	do {
-		if (*seconds > 59)
-            printf("The number of seconds is higher than 59!\n");
-		else if (*seconds < 0)
-            printf("Invalid input! Please enter a valid number.\n");
-
-		printf("How many seconds? ");
-		scanf("%d", seconds);
-	}
-	while (*seconds > 59 || *seconds < 0);
+	while (*input_number > high || *input_number < low);
 }
 
 void
@@ -47,7 +36,8 @@ main(int argc, char *argv[])
     int seconds_left, minutes_left;
     char figlet_command[100];
 
-	read_time_input(&minutes, &seconds);
+    read_time_input(&minutes, 0, 59, "minutes");
+    read_time_input(&seconds, 0, 59, "seconds");
     #ifdef _WIN32
         system("cls");
     #else
