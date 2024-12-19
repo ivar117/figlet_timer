@@ -6,7 +6,7 @@
 /*#include <ncurses.h>*/
 
 void
-read_time_input(unsigned int *minutes, unsigned int *seconds)
+read_time_input(int *minutes, int *seconds)
 {
 	do {
 		if (*minutes > 59)
@@ -15,7 +15,7 @@ read_time_input(unsigned int *minutes, unsigned int *seconds)
             printf("Invalid input! Please enter a valid number.\n");
 
 		printf("How many minutes? ");
-		scanf("%u", minutes);
+		scanf("%d", minutes);
 	}
 	while (*minutes > 59 || *minutes < 0);
 
@@ -26,7 +26,7 @@ read_time_input(unsigned int *minutes, unsigned int *seconds)
             printf("Invalid input! Please enter a valid number.\n");
 
 		printf("How many seconds? ");
-		scanf("%u", seconds);
+		scanf("%d", seconds);
 	}
 	while (*seconds > 59 || *seconds < 0);
 }
@@ -42,7 +42,7 @@ done(void)
 int
 main(int argc, char *argv[])
 {
-    unsigned int minutes = 0, seconds = 0;
+    int minutes = 0, seconds = 0;
     int time_left;
     int seconds_left, minutes_left;
     char figlet_command[100];
