@@ -1,9 +1,17 @@
 #include <stdio.h>
-#include <unistd.h> /* sleep() func */
-#include <limits.h>
 #include <stdlib.h>
-#include <fcntl.h>
-/*#include <ncurses.h>*/
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+
+#ifdef _WIN32
+#define CLEAR_SCREEN system("cls")
+#else
+#define CLEAR_SCREEN system("clear")
+#endif
 
 void
 read_time_input(int *input_number, int low, int high, char *input_name)
@@ -23,9 +31,9 @@ read_time_input(int *input_number, int low, int high, char *input_name)
 void
 done(void)
 {
-	system("clear"); /* Clear screen */
-	printf("\n");
-	system("figlet DONE!");
+    CLEAR_SCREEN;
+    printf("\n");
+    system("figlet DONE!");
 }
 
 int
@@ -38,11 +46,6 @@ main(int argc, char *argv[])
 
     read_time_input(&minutes, 0, 59, "minutes");
     read_time_input(&seconds, 0, 59, "seconds");
-    #ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif
 
 	for (time_left = minutes * 60 + seconds; time_left > 0; time_left--) {
 		seconds_left = time_left % 60;
@@ -50,17 +53,18 @@ main(int argc, char *argv[])
 
         snprintf(figlet_command, sizeof(figlet_command), "figlet %02d:%02d", minutes_left, seconds_left);
 
-        #ifdef _WIN32
-            system("cls");
-        #else
-            system("clear");
-        #endif
+        CLEAR_SCREEN;
 
+        printf("\n");
         system(figlet_command);
 		fflush(stdout);
 
-		sleep(1);
-	}
+        #ifdef _WIN32
+            Sleep(1000);
+        #else
+            sleep(1);
+        #endif
+    }
 	done();
 	return 0;
 }
